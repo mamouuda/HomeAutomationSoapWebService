@@ -3,37 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package de.cynapsys.homeautomation.entity;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.sun.xml.internal.ws.api.ha.HaInfo;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
  * @author mouadh
  */
-@XmlRootElement(name = "device")
-public class Device {
+public class Room {
+    
     Long id;
     String name;
     String description;
-    int currentValue;
-    Room room;
+    Set<Device> devices;
 
-    public Device() {
+    public Room() {
+        devices = new HashSet<>();
     }
 
-    
-    public Device(Long id, String name, String description, int currentValue) {
+    public Room(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.currentValue = currentValue;
+        this.devices = new HashSet<>();
     }
 
-    @XmlElement
     public Long getId() {
         return id;
     }
@@ -42,7 +40,6 @@ public class Device {
         this.id = id;
     }
 
-    @XmlElement
     public String getName() {
         return name;
     }
@@ -51,7 +48,6 @@ public class Device {
         this.name = name;
     }
 
-    @XmlElement
     public String getDescription() {
         return description;
     }
@@ -60,28 +56,19 @@ public class Device {
         this.description = description;
     }
 
-    public int getCurrentValue() {
-        return currentValue;
+    public Set<Device> getDevices() {
+        return devices;
     }
 
-    @XmlAttribute
-    public void setCurrentValue(int currentValue) {
-        this.currentValue = currentValue;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setDevices(Set<Device> devices) {
+        this.devices = devices;
     }
     
     
 
     @Override
     public String toString() {
-        return "Device{" + "id=" + id + ", name=" + name + ", description=" + description + ", currentValue=" + currentValue + "}\n";
+        return "Room{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
     }
     
     
