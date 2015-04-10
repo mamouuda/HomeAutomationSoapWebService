@@ -69,7 +69,9 @@ public class DeviceServiceImpl implements DevicesService {
 
     @Override
     public Long addDevice(Device device) {
-        device.setId(555L);
+        int i = (int)(Math.random()*1000);
+        Long a = Long.parseLong(i+"");
+        device.setId(a);
         listdevices.add(device);
         return device.getId();
     }
@@ -95,35 +97,65 @@ public class DeviceServiceImpl implements DevicesService {
     @Override
     public boolean attachDeviceToRoom(Long deviceID, Long roomID) {
     try{
+        Room room = getRoomById(roomID);
+        Device device = getDeviceByID(deviceID);
         
+        room.addDevice(device);
+        return true;
     }
     catch(Exception e){
-        
+        return false;
     }
     }
 
     @Override
     public boolean detachDeviceFromRoom(Long deviceID, Long roomID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        try{    
+            Device device = getDeviceByID(deviceID);
+            Room room = getRoomById(roomID);
+            room.getDevices().remove(device);
+            return true;
+        }
+        catch (Exception e){ return false; }
+            
     }
     
 
 
     @Override
-    public boolean addRoom(Room room) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Long addRoom(Room room) {
+        int i = (int)(Math.random()*1000);
+        Long a = Long.parseLong(i+"");
+        room.setId(a);
+        listRoom.add(room);
+        return room.getId();
     }
 
     @Override
     public boolean updateRoom(Room room) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i= deviceListPosition(room.getId());
+        try{
+            listRoom.set(i, room);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
     }
 
     @Override
     public boolean deleteRoom(Long roomID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Room r = getRoomById(roomID);
+        return listRoom.remove(r);
     }
 
+    @Override
+    public Room getRoomById(Long roomID) {
+        int indexRoom=roomListPosition(roomID);
+        return listRoom.get(indexRoom);
+    }
+    
     int deviceListPosition(Long deviceID){
         for (int i=0; i<listdevices.size();i++){
             if ( Objects.equals(((Device)listdevices.get(i)).getId(), deviceID) ){
@@ -133,5 +165,12 @@ public class DeviceServiceImpl implements DevicesService {
         return -1;
     }
     
-        
+    int roomListPosition(Long roomID){
+        for (int i=0; i<listRoom.size();i++){
+            if ( Objects.equals(((Room)listRoom.get(i)).getId(), roomID) ){
+                return i;
+            }
+        }
+        return -1;
+    } 
 }

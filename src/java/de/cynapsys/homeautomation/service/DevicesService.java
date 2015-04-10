@@ -24,7 +24,7 @@ public interface DevicesService {
     
                                         /*******************
                                          * *****************
-                                         * device functions*
+                                         * device methods***
                                          * *****************
                                          * *****************/
     @WebMethod
@@ -51,12 +51,18 @@ public interface DevicesService {
     
                                         /*****************
                                          * ***************
-                                         * room functions*
+                                         * room methods***
                                          * ***************
-                                         * ***************/
+                                         *
+     * @param roomID
+     * @param room
+     * @return  ***************/
     
     @WebMethod
-    boolean addRoom(@WebParam(name = "room")Room room);
+    Room getRoomById(@WebParam(name = "roomID") Long roomID);
+    
+    @WebMethod
+    Long addRoom(@WebParam(name = "room")Room room);
     
     @WebMethod
     boolean updateRoom(@WebParam(name = "room")Room room);

@@ -65,6 +65,10 @@ public class Room {
     }
     
     
+    
+    public void addDevice(Device d){
+        devices.add(d);
+    }
 
     @Override
     public String toString() {
